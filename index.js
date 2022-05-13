@@ -2,7 +2,7 @@ const express = require('express')
 var fixtureFactory = require('fixture-factory');
 
 const productType = () => {
-    const types = ['small', 'medium', 'large', 'x-large'];
+    const types = ['x-small', 'small', 'medium', 'large', 'x-large'];
     function getRndInteger(min, max) {
         return Math.floor(Math.random() * (max - min + 1) ) + min;
     }
@@ -10,8 +10,14 @@ const productType = () => {
     return types[randomIndex];
 }
 
+function randomString(length, chars) {
+    var result = '';
+    for (var i = length; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    return result;
+}
+
 var productsDataModel = {
-    SKU: 'random.words',
+    SKU: randomString(12, '0123456789abcdefghijklmnopqrstuvwxyz'),
     price: {
         method: 'random.number',
         args: [
@@ -23,7 +29,7 @@ var productsDataModel = {
     },
     name: 'random.word',
     descrpition: 'random.words',
-    image: 'internet.image',
+    image: 'random.image',
     shipmentDeliveryTime: {
         method: 'random.number',
         args: [
