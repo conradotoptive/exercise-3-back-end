@@ -1,0 +1,21 @@
+{
+  "name": "exercise-3-back-end",
+  "version": "1.0.0",
+  "description": "### By Conrado Castillo",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "fixture-factory": "1.5.1",
+    "nodemon": "2.0.16"
+  },
+  "dependencies": {
+    "express": "4.18.1"
+  }
+}
