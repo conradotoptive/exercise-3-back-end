@@ -1,10 +1,14 @@
-const { response } = require('express');
-const { request } = require('express');
+const { response, request } = require("express");
 const Product = require('../db/productSchema');
+
+const paginateOptions = {
+    page: 1,
+    limit : 10
+}
 
 const getItems = async (request, response) => {
     try {
-        const data = await Product.find ({});
+        const data = await Product.paginate({}, paginateOptions);
         response.json(data);
     } catch (err) {
         console.log(err);
@@ -14,7 +18,7 @@ const getItems = async (request, response) => {
 
 const getActiveItems = async (request, response) => {
     try {
-        const data = await Product.find({active:true});
+        const data = await Product.paginate({active:true}, paginateOptions);
         response.json(data);
     } catch (err) {
         console.log(err);
@@ -40,7 +44,7 @@ const getItem = async (request, response) => {
 const updateItem = async (request, response) => {
     try {
         const { id } = request.params;
-        const product =  request.body;
+        const { product, state } =  request.body;
         const newProductInfo = { 
             sku: product.SKU,
             price: product.price,
@@ -48,7 +52,7 @@ const updateItem = async (request, response) => {
             description: product.description,
             image: product.image,
             shipmentDeliveryTime: product.shipmentDeliveryTime,
-            active: product.active,
+            active: state,
             size: product.size,
             quantity: product.quantity
         }
