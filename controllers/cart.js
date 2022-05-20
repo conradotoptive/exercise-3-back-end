@@ -4,7 +4,7 @@ const Cart = require('../db/cartSchema');
 const paginateOptions = {
     page: 1,
     limit : 10
-}
+};
 
 const getItems = async (request,response) => {
     try {
@@ -14,7 +14,7 @@ const getItems = async (request,response) => {
         console.log(err);
         response.status(400).end();
     }
-}
+};
 
 const getItem = async (request,response) => {
     try {
@@ -29,7 +29,7 @@ const getItem = async (request,response) => {
         console.log(err);
         response.status(400).end();
     }
-}
+};
 
 const postItem = async (request,response) => {
     try {
@@ -47,7 +47,7 @@ const postItem = async (request,response) => {
         console.log(err);
         response.status(400).end();
     }
-}
+};
 
 const deleteItem = async (request,response) => {
     try {
@@ -59,6 +59,24 @@ const deleteItem = async (request,response) => {
         console.log(err);
         response.status(400).end();
     }
-}
+};
 
-module.exports = { getItem, getItems, postItem, deleteItem }
+const updateItem = async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { cart, state } =  request.body;
+        const newCartInfo = { 
+            userId: cart.userId,
+            productId: cart.productId,
+            bought: true,
+            quantity: cart.quantity
+        }
+        const data = await Product.findByIdAndUpdate(id, newCartInfo, { new: true });  
+        response.json(data);
+        } catch (err) {
+        console.log(err);
+        response.status(400).end();
+    }
+};
+
+module.exports = { getItem, getItems, postItem, deleteItem, updateItem }

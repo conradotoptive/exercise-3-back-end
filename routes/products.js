@@ -8,15 +8,18 @@ const checkRol = require('../middleware/rol');
 const authMiddleware = require ('../middleware/session');
 
 //get all products
-router.get('/all', authMiddleware, checkRol(["admin"]), getItems);
+router.get('/all', checkRol(["admin"]), getItems);
+
+/*//get all active products
+router.get('/', authMiddleware, getActiveItems);*/
 
 //get all active products
-router.get('/', authMiddleware, getActiveItems);
+router.get('/', getActiveItems);
 
 //get a specific product
-router.get('/:id', authMiddleware, getItem);
+router.get('/:id', getItem);
 
 //update the active parameter of a product
-router.put('/:id', authMiddleware, checkRol(["admin"]), updateItem);
+router.put('/:id', checkRol(["admin"]), updateItem);
 
 module.exports = router
