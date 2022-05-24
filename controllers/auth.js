@@ -6,7 +6,15 @@ const { tokenSign } = require('../utils/handleJwt');
 
 const registerCtrl = async (request, response) =>{
     try {
-        request = matchedData(request);
+        request = request.body;
+        mail = request.mail;
+        const user = await User.findOne({mail:mail});
+        if (user) {
+            //response.status(405).end()
+            const duplicated = "duplicated";
+            response.json(duplicated);
+            return
+        }
         const password = await encrypt(request.password);
         const isAdmin = false;
         const wallet = 1000;
@@ -26,8 +34,8 @@ const registerCtrl = async (request, response) =>{
 
 const loginCtrl = async (request, response) =>{
     try {
-        request = matchedData(request);
-        const user = await User.findOne({email:request.email});
+        request = request.body;
+        const user = await User.findOne({mail:request.mail});
         if (!user) {
             response.status(404).end();
             return
