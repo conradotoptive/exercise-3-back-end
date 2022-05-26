@@ -10,9 +10,7 @@ const registerCtrl = async (request, response) =>{
         mail = request.mail;
         const user = await User.findOne({mail:mail});
         if (user) {
-            //response.status(405).end()
-            const duplicated = "duplicated";
-            response.json(duplicated);
+            response.status(404).end()
             return
         }
         const password = await encrypt(request.password);

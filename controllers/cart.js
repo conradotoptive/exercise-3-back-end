@@ -8,7 +8,17 @@ const paginateOptions = {
 
 const getItems = async (request,response) => {
     try {
-        const data = await Cart.paginate({}, paginateOptions);
+        const data = await Cart.paginate({bought: false}, paginateOptions);
+        response.json(data);
+    } catch (err) {
+        console.log(err);
+        response.status(400).end();
+    }
+};
+
+const getBoughtItems = async (request,response) => {
+    try {
+        const data = await Cart.paginate({bought: true}, paginateOptions);
         response.json(data);
     } catch (err) {
         console.log(err);
@@ -35,6 +45,7 @@ const postItem = async (request,response) => {
     try {
         const { user, product, quantity } = request.body;
         const newCartItem = {
+            name: product.name,
             userId: user._id,
             productId: product._id,
             bought: false,
@@ -64,14 +75,15 @@ const deleteItem = async (request,response) => {
 const updateItem = async (request, response) => {
     try {
         const { id } = request.params;
-        const { cart, state } =  request.body;
-        const newCartInfo = { 
+        const { cart } =  request.body;
+        const newCartInfo = {
+            name: cart.name,
             userId: cart.userId,
             productId: cart.productId,
             bought: true,
             quantity: cart.quantity
         }
-        const data = await Product.findByIdAndUpdate(id, newCartInfo, { new: true });  
+        const data = await Cart.findByIdAndUpdate(id, newCartInfo, { new: true });  
         response.json(data);
         } catch (err) {
         console.log(err);
@@ -79,4 +91,4 @@ const updateItem = async (request, response) => {
     }
 };
 
-module.exports = { getItem, getItems, postItem, deleteItem, updateItem }
+module.exports = { getItem, getItems, postItem, deleteItem, updateItem, getBoughtItems }

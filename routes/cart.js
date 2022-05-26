@@ -1,13 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const { getItems,
+    getBoughtItems,
     getItem,
     postItem,
     deleteItem,
     updateItem } = require('../controllers/cart');
 
-//get all items in the cart
+//get all items in the cart (not bought)
 router.get('/', getItems);
+
+//get all purchaces
+router.get('/purchaces', getBoughtItems);
 
 //get one item in the cart
 router.get('/:id', getItem);
