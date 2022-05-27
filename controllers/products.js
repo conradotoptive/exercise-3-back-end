@@ -64,4 +64,32 @@ const updateItem = async (request, response) => {
     }
 };
 
-module.exports = { getItem, getItems, updateItem, getActiveItems }
+const updateQuantity = async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { product } = request.body;
+        const newQuantity = product.quantity > 0 ? product.quantity - 1 : 0;
+        if (product.quantity === 0) {
+            response.status(404).end();
+            return
+        }
+        const newProductInfo = {
+            sku: product.sku,
+            price: product.price,
+            name: product.name,
+            description: product.description,
+            image: product.image,
+            shipmentDeliveryTime: product.shipmentDeliveryTime,
+            active: product.active,
+            size: product.size,
+            quantity: newQuantity
+        }
+        const data = await Product.findByIdAndUpdate(product._id, newProductInfo, { new: true });
+        response.json(data);
+    } catch (err) {
+        console.log(err);
+        response.status(400).end();
+    }
+}
+
+module.exports = { getItem, getItems, updateItem, getActiveItems, updateQuantity }

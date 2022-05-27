@@ -8,10 +8,10 @@ const { getItems,
     updateItem } = require('../controllers/cart');
 
 //get all items in the cart (not bought)
-router.get('/', getItems);
+router.post('/myCarts', getItems);
 
 //get all purchaces
-router.get('/purchaces', getBoughtItems);
+router.post('/purchaces', getBoughtItems);
 
 //get one item in the cart
 router.get('/:id', getItem);

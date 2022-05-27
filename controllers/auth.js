@@ -55,4 +55,28 @@ const loginCtrl = async (request, response) =>{
     }
 };
 
-module.exports = { registerCtrl, loginCtrl }
+const updateWallet = async (request, response) => {
+    try {
+        const { id } = request.params;
+        const { user, quantity } = request.body;
+        if (user.wallet < quantity) {
+            response.status(404).end();
+            return;
+        }
+        const newQuantity = user.wallet - quantity;
+        const newUserInfo = {
+            userName: user.userName,
+            mail: user.mail,
+            password: user.password,
+            isAdmin: user.isAdmin,
+            wallet: newQuantity
+        }
+        const data = await User.findByIdAndUpdate(id, newUserInfo, { new: true });
+        response.json(data);
+    } catch (err){
+        console.log(err);
+        response.status(400).end();
+    }
+}
+
+module.exports = { registerCtrl, loginCtrl, updateWallet }

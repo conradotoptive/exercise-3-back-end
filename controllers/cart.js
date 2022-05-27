@@ -8,7 +8,8 @@ const paginateOptions = {
 
 const getItems = async (request,response) => {
     try {
-        const data = await Cart.paginate({bought: false}, paginateOptions);
+        const { userId }  = request.body;
+        const data = await Cart.paginate({bought: false, userId: userId}, paginateOptions);
         response.json(data);
     } catch (err) {
         console.log(err);
@@ -18,7 +19,8 @@ const getItems = async (request,response) => {
 
 const getBoughtItems = async (request,response) => {
     try {
-        const data = await Cart.paginate({bought: true}, paginateOptions);
+        const { userId }  = request.body;
+        const data = await Cart.paginate({bought: true, userId: userId}, paginateOptions);
         response.json(data);
     } catch (err) {
         console.log(err);

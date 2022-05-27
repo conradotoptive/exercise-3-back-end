@@ -3,7 +3,8 @@ const router = express.Router();
 const { getItems, 
     getItem, 
     updateItem, 
-    getActiveItems } = require('../controllers/products');
+    getActiveItems,
+    updateQuantity } = require('../controllers/products');
 const checkRol = require('../middleware/rol');
 const authMiddleware = require ('../middleware/session');
 
@@ -21,5 +22,8 @@ router.get('/:id', getItem);
 
 //update the active parameter of a product
 router.put('/:id', checkRol(["admin"]), updateItem);
+
+//update the quantity of itmes of a certain product when you buy it
+router.put('/quantity/:id', updateQuantity);
 
 module.exports = router
