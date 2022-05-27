@@ -1,4 +1,5 @@
 require('dotenv').config();
+const Product = require('./db/productSchema');
 const cors = require('cors');
 const express = require('express');
 const initDB = require('./db/connection');
@@ -63,14 +64,18 @@ var productDataModel = {
 
 
 fixtureFactory.register('product', productDataModel);
+//let products = Product.find()
+//console.log(products)
+//let productItems = db.products.count();
+//console.log(productItems);
 
-/*for (let index = 0; index < 5; index++) {
+for (let index = 0; index < 100; index++) {
     let productFixture = fixtureFactory.generateOne('product');
     productFixture.sku = randomString(12, '0123456789abcdefghijklmnopqrstuvwxyz');
     productFixture.size = productSize();
     const newProduct = new Product(productFixture);
     newProduct.save();
-}*/
+}
 
 app.use("/api", require("./routes"))
 
