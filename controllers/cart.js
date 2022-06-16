@@ -1,9 +1,9 @@
 const { response, request } = require("express");
 const Cart = require('../db/cartSchema');
 
-const paginateOptions = {
+let paginateOptions = {
     page: 1,
-    limit : 10
+    limit : 100
 };
 
 const getItems = async (request,response) => {

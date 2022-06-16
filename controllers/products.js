@@ -2,13 +2,13 @@ const { response, request } = require("express");
 const Product = require('../db/productSchema');
 
 let paginateOptions = {
-    page: 0,
+    page: 1,
     limit : 10
 }
 
 const getItems = async (request, response) => {
     try {
-        const { page } = request.body
+        const { page } = request.body || 1;
         paginateOptions.page = page;
         const data = await Product.paginate({}, paginateOptions);
         response.json(data);
@@ -20,7 +20,7 @@ const getItems = async (request, response) => {
 
 const getActiveItems = async (request, response) => {
     try {
-        const { page } = request.body
+        const { page } = request.body || 1;
         paginateOptions.page = page;
         const data = await Product.paginate({active:true}, paginateOptions);
         response.json(data);
