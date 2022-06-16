@@ -9,13 +9,13 @@ const checkRol = require('../middleware/rol');
 const authMiddleware = require ('../middleware/session');
 
 //get all products
-router.get('/all', checkRol(["admin"]), getItems);
+router.post('/all', checkRol(["admin"]), getItems);
 
 /*//get all active products
 router.get('/', authMiddleware, getActiveItems);*/
 
 //get all active products
-router.get('/', getActiveItems);
+router.post('/', getActiveItems);
 
 //get a specific product
 router.get('/:id', getItem);

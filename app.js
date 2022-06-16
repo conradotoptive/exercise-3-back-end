@@ -69,13 +69,13 @@ fixtureFactory.register('product', productDataModel);
 //let productItems = db.products.count();
 //console.log(productItems);
 
-for (let index = 0; index < 100; index++) {
+/*for (let index = 0; index < 100; index++) {
     let productFixture = fixtureFactory.generateOne('product');
     productFixture.sku = randomString(12, '0123456789abcdefghijklmnopqrstuvwxyz');
     productFixture.size = productSize();
     const newProduct = new Product(productFixture);
     newProduct.save();
-}
+}*/
 
 app.use("/api", require("./routes"))
 
