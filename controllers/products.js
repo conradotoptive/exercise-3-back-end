@@ -3,7 +3,7 @@ const Product = require('../db/productSchema');
 
 let paginateOptions = {
     page: 1,
-    limit : 10
+    limit : 15
 }
 
 const getItems = async (request, response) => {

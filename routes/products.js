@@ -11,8 +11,8 @@ const authMiddleware = require ('../middleware/session');
 //get all products
 router.post('/all', checkRol(["admin"]), getItems);
 
-/*//get all active products
-router.get('/', authMiddleware, getActiveItems);*/
+//get all active products
+//router.get('/', authMiddleware, getActiveItems);
 
 //get all active products
 router.post('/', getActiveItems);
