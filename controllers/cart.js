@@ -78,12 +78,13 @@ const updateItem = async (request, response) => {
     try {
         const { id } = request.params;
         const { cart } =  request.body;
+        const { quantity } = request.body;
         const newCartInfo = {
             name: cart.name,
             userId: cart.userId,
             productId: cart.productId,
             bought: true,
-            quantity: cart.quantity
+            quantity: quantity
         }
         const data = await Cart.findByIdAndUpdate(id, newCartInfo, { new: true });  
         response.json(data);

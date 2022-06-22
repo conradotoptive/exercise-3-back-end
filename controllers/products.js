@@ -72,7 +72,8 @@ const updateQuantity = async (request, response) => {
     try {
         const { id } = request.params;
         const { product } = request.body;
-        const newQuantity = product.quantity > 0 ? product.quantity - 1 : 0;
+        const { quantity } = request.body;
+        const newQuantity = (product.quantity - quantity) >= 0 ? product.quantity - quantity : product.quantity;
         if (product.quantity === 0) {
             response.status(404).end();
             return
